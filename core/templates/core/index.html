@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booqly AI — Shop Smarter on Telegram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#6366f1;--primary-dark:#4f46e5;--secondary:#f59e0b;--dark:#0f172a;--gray:#64748b;--light:#f8fafc;--white:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--dark);line-height:1.6}
+.navbar{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);z-index:1000;border-bottom:1px solid #e2e8f0}
+.nav-container{max-width:1200px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.5rem;font-weight:800;color:var(--primary);display:flex;align-items:center;gap:0.5rem}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.1rem}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--gray);font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--primary)}
+.btn{padding:0.75rem 1.5rem;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;font-size:1rem}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;box-shadow:0 4px 14px rgba(99,102,241,0.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(99,102,241,0.5)}
+.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn-outline:hover{background:var(--primary);color:white}
+.hero{padding:8rem 2rem 4rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;min-height:90vh}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:#eef2ff;color:var(--primary);padding:0.5rem 1rem;border-radius:50px;font-size:0.875rem;font-weight:600;margin-bottom:1.5rem}
+.hero h1{font-size:3.5rem;font-weight:800;line-height:1.1;margin-bottom:1.5rem}
+.hero h1 span{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.25rem;color:var(--gray);margin-bottom:2rem;max-width:500px}
+.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-stats{display:flex;gap:2rem;margin-top:3rem}
+.stat h3{font-size:2rem;font-weight:800;color:var(--primary)}
+.stat p{font-size:0.875rem;color:var(--gray);margin:0}
+.phone-mockup{position:relative;width:320px;height:640px;background:var(--dark);border-radius:40px;padding:12px;box-shadow:0 25px 60px rgba(0,0,0,0.3);margin:0 auto}
+.phone-screen{width:100%;height:100%;background:#f0f2f5;border-radius:32px;overflow:hidden;display:flex;flex-direction:column}
+.phone-header{background:var(--primary);color:white;padding:1rem;display:flex;align-items:center;gap:0.75rem}
+.phone-avatar{width:36px;height:36px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.phone-header-text h4{font-size:0.9rem;font-weight:600}
+.phone-header-text span{font-size:0.75rem;opacity:0.8}
+.phone-chat{flex:1;padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:0.75rem}
+.msg{max-width:80%;padding:0.75rem 1rem;border-radius:18px;font-size:0.85rem;line-height:1.4;animation:fadeInUp 0.5s ease}
+.msg-bot{background:white;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.msg-user{background:var(--primary);color:white;align-self:flex-end;border-bottom-right-radius:4px}
+.msg-product{background:white;padding:0;overflow:hidden;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1);align-self:flex-start;max-width:90%}
+.msg-product img{width:100%;height:120px;object-fit:cover}
+.msg-product-info{padding:0.75rem}
+.msg-product-info h4{font-size:0.85rem;margin-bottom:0.25rem}
+.msg-product-info span{color:var(--primary);font-weight:700}
+.msg-btn{background:var(--primary);color:white;text-align:center;padding:0.5rem;font-size:0.8rem;font-weight:600}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.features{background:var(--light);padding:6rem 2rem}
+.section-container{max-width:1200px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:4rem}
+.section-header h2{font-size:2.5rem;font-weight:800;margin-bottom:1rem}
+.section-header p{color:var(--gray);font-size:1.125rem;max-width:600px;margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.feature-card{background:white;padding:2.5rem;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.05);transition:transform 0.2s}
+.feature-card:hover{transform:translateY(-5px)}
+.feature-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.5rem}
+.feature-card h3{font-size:1.25rem;font-weight:700;margin-bottom:0.75rem}
+.feature-card p{color:var(--gray);font-size:0.95rem}
+.how-it-works{padding:6rem 2rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:3rem;margin-top:3rem}
+.step{text-align:center;position:relative}
+.step-num{width:60px;height:60px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;margin:0 auto 1.5rem}
+.step h3{font-size:1.25rem;font-weight:700;margin-bottom:0.75rem}
+.step p{color:var(--gray)}
+.cta{background:linear-gradient(135deg,var(--primary),var(--primary-dark));padding:6rem 2rem;text-align:center;color:white}
+.cta h2{font-size:2.5rem;font-weight:800;margin-bottom:1rem}
+.cta p{font-size:1.25rem;opacity:0.9;margin-bottom:2rem}
+.cta .btn{background:white;color:var(--primary);font-size:1.1rem;padding:1rem 2.5rem}
+.cta .btn:hover{background:var(--light)}
+.footer{background:var(--dark);color:white;padding:3rem 2rem;text-align:center}
+.footer .logo{justify-content:center;margin-bottom:1rem;color:white}
+.footer p{color:#94a3b8}
+@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center;padding-top:6rem}.hero h1{font-size:2.5rem}.hero p{margin:0 auto 2rem}.hero-buttons{justify-content:center}.hero-stats{justify-content:center}.phone-mockup{display:none}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+<div class="nav-container">
+<div class="logo"><div class="logo-icon">🛍</div>Booqly AI</div>
+<ul class="nav-links">
+<li><a href="#features">Features</a></li>
+<li><a href="#how-it-works">How It Works</a></li>
+</ul>
+<a href="https://t.me/YourBotUsername" class="btn btn-primary">Start Shopping</a>
+</div>
+</nav>
+
+<section class="hero">
+<div>
+<div class="hero-badge">🤖 Powered by Gemini AI</div>
+<h1>Shop Smarter with <span>Booqly AI</span></h1>
+<p>Your personal AI shopping assistant inside Telegram. Find products, compare prices, and buy instantly — all in one chat.</p>
+<div class="hero-buttons">
+<a href="https://t.me/YourBotUsername" class="btn btn-primary">🚀 Start on Telegram</a>
+<a href="#how-it-works" class="btn btn-outline">How It Works</a>
+</div>
+<div class="hero-stats">
+<div class="stat"><h3>10K+</h3><p>Products Found</p></div>
+<div class="stat"><h3>&lt;2s</h3><p>Avg Response</p></div>
+<div class="stat"><h3>24/7</h3><p>Always Online</p></div>
+</div>
+</div>
+<div class="phone-mockup">
+<div class="phone-screen">
+<div class="phone-header">
+<div class="phone-avatar">🤖</div>
+<div class="phone-header-text"><h4>Booqly AI</h4><span>online</span></div>
+</div>
+<div class="phone-chat" id="chat-demo">
+<div class="msg msg-bot">Hey there! 👋 I'm Booqly AI. What are we hunting for today?</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="features" id="features">
+<div class="section-container">
+<div class="section-header">
+<h2>Why Booqly AI?</h2>
+<p>Everything you need to shop smarter, faster, and easier — without ever leaving Telegram.</p>
+</div>
+<div class="features-grid">
+<div class="feature-card"><div class="feature-icon">🧠</div><h3>AI-Powered Search</h3><p>Just describe what you need in plain English. Booqly AI understands intent, not just keywords.</p></div>
+<div class="feature-card"><div class="feature-icon">🖼️</div><h3>Visual Product Cards</h3><p>See real product images, prices, ratings, and features — beautifully formatted in your chat.</p></div>
+<div class="feature-card"><div class="feature-icon">💳</div><h3>Buy Inside Telegram</h3><p>Complete your entire purchase without leaving the app. Secure payments, instant confirmation.</p></div>
+<div class="feature-card"><div class="feature-icon">⚡</div><h3>Lightning Fast</h3><p>Real-time responses powered by async Django and webhooks. No waiting, no polling delays.</p></div>
+<div class="feature-card"><div class="feature-icon">🎯</div><h3>Smart Recommendations</h3><p>Get personalized suggestions based on your preferences, budget, and past conversations.</p></div>
+<div class="feature-card"><div class="feature-icon">🔒</div><h3>Secure & Private</h3><p>Your data is encrypted and never shared. Shop with confidence.</p></div>
+</div>
+</div>
+</section>
+
+<section class="how-it-works" id="how-it-works">
+<div class="section-container">
+<div class="section-header">
+<h2>How It Works</h2>
+<p>Three simple steps from "I want" to "It's ordered."</p>
+</div>
+<div class="steps">
+<div class="step"><div class="step-num">1</div><h3>Tell Booqly</h3><p>Message Booqly AI on Telegram. Describe what you need in natural language.</p></div>
+<div class="step"><div class="step-num">2</div><h3>Browse & Compare</h3><p>Booqly finds the best options with images, prices, and ratings. Pick your favorite.</p></div>
+<div class="step"><div class="step-num">3</div><h3>Buy Instantly</h3><p>Tap "Buy" and pay securely inside Telegram. Get your order confirmation in seconds.</p></div>
+</div>
+</div>
+</section>
+
+<section class="cta">
+<div class="section-container">
+<h2>Ready to Shop Smarter?</h2>
+<p>Join thousands of shoppers who use Booqly AI to find and buy products faster than ever.</p>
+<a href="https://t.me/YourBotUsername" class="btn">🚀 Start Shopping on Telegram</a>
+</div>
+</section>
+
+<footer class="footer">
+<div class="logo"><div class="logo-icon">🛍</div>Booqly AI</div>
+<p>© 2026 Booqly AI. Built with ❤️ using Django, Gemini, and Telegram.</p>
+</footer>
+
+<script>
+const chatDemo = document.getElementById('chat-demo');
+const messages = [
+    {type:'user',text:'I want a double-sided refrigerator',delay:1500},
+    {type:'bot',text:'Music to my ears! 🎧 Let me find the best fridges for you...',delay:2500},
+    {type:'product',name:'Samsung French Door Fridge',price:'$1,299',delay:4000},
+    {type:'user',text:'What about gaming laptops?',delay:6000},
+    {type:'bot',text:'Great question! 🎮 Best gaming laptops pack RTX 50-series GPUs. Want me to pull up top picks?',delay:7500},
+];
+messages.forEach(msg => {
+    setTimeout(() => {
+        const div = document.createElement('div');
+        if(msg.type === 'product'){
+            div.className = 'msg-product';
+            div.innerHTML = `<div style="background:linear-gradient(135deg,#6366f1,#4f46e5);height:100px;display:flex;align-items:center;justify-content:center;color:white;font-size:2rem">🖥️</div><div class="msg-product-info"><h4>${msg.name}</h4><span>${msg.price}</span></div><div class="msg-btn">🛒 Select & Buy</div>`;
+        } else {
+            div.className = `msg msg-${msg.type}`;
+            div.textContent = msg.text;
+        }
+        chatDemo.appendChild(div);
+        chatDemo.scrollTop = chatDemo.scrollHeight;
+    }, msg.delay);
+});
+</script>
+</body>
+</html>

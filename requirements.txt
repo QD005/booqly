@@ -1,0 +1,9 @@
+python-telegram-bot>=20.0
+google-genai
+requests
+python-dotenv
+gunicorn
+uvicorn[standard]
+asgiref
+psycopg2-binary
+whitenoise
