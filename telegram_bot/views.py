@@ -1,4 +1,5 @@
 import json
+import asyncio
 from django.http import JsonResponse
 from django.views import View
 from django.utils.decorators import method_decorator
@@ -14,34 +15,39 @@ from .handlers import (
     precheckout_callback, successful_payment,
 )
 
-_bot_app = None
+
+def _build_app():
+    """Build a fresh Application instance."""
+    app = Application.builder().token(settings.TELEGRAM_BOT_TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(CallbackQueryHandler(handle_callback))
+    app.add_handler(PreCheckoutQueryHandler(precheckout_callback))
+    app.add_handler(MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment))
+    return app
 
 
-def get_bot():
-    global _bot_app
-    if _bot_app is None:
-        _bot_app = Application.builder().token(settings.TELEGRAM_BOT_TOKEN).updater(None).build()
-        _bot_app.add_handler(CommandHandler("start", start))
-        _bot_app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-        _bot_app.add_handler(CallbackQueryHandler(handle_callback))
-        _bot_app.add_handler(PreCheckoutQueryHandler(precheckout_callback))
-        _bot_app.add_handler(MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment))
-    return _bot_app
+async def _process_update(data: dict):
+    """Process a single Telegram update in an isolated async context."""
+    app = _build_app()
+    await app.initialize()
+    try:
+        update = Update.de_json(data, app.bot)
+        await app.process_update(update)
+    finally:
+        await app.shutdown()
 
 
 @method_decorator(csrf_exempt, name="dispatch")
 class TelegramWebhookView(View):
-    async def post(self, request, *args, **kwargs):
-        app = get_bot()
-        if not getattr(app, "_initialized", False):
-            await app.initialize()
-            app._initialized = True
+    def post(self, request, *args, **kwargs):
         try:
             data = json.loads(request.body)
-            update = Update.de_json(data, app.bot)
-            await app.process_update(update)
-            return JsonResponse({"status": "ok"})
         except json.JSONDecodeError:
             return JsonResponse({"status": "error", "message": "Invalid JSON"}, status=400)
-        except Exception as e:
-            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
+        # Each request gets its own event loop + Application
+        # This prevents "Event loop is closed" across Gunicorn workers
+        asyncio.run(_process_update(data))
+
+        return JsonResponse({"status": "ok"})
