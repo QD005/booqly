@@ -1,0 +1,72 @@
+# ── docker-compose.yml (Development) ─────────────────────────────────────────
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: django_db
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME:-django_db}
+      POSTGRES_USER: ${DB_USER:-django_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-django_password}
+    ports:
+      - "5432:5432"  # Expose so you can connect from pgAdmin/DBeaver
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-django_user} -d ${DB_NAME:-django_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis (for caching / Celery later if needed)
+  redis:
+    image: redis:7-alpine
+    container_name: django_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  # Django Web Application
+  web:
+    build: .
+    container_name: django_web
+    restart: unless-stopped
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app                    # Mount code for live editing (dev only!)
+      - staticfiles:/app/staticfiles
+      - media:/app/media
+      - ./logs:/app/logs
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_ENV=development
+      - DEBUG=True
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-dev-only}
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_NAME=${DB_NAME:-django_db}
+      - DB_USER=${DB_USER:-django_user}
+      - DB_PASSWORD=${DB_PASSWORD:-django_password}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - RAINFOREST_API_KEY=${RAINFOREST_API_KEY}
+      - PAYMENT_PROVIDER_TOKEN=${PAYMENT_PROVIDER_TOKEN}
+      - WEBHOOK_BASE_URL=${WEBHOOK_BASE_URL}
+      - USE_MOCK_PRODUCTS=${USE_MOCK_PRODUCTS:-True}
+      - LOG_LEVEL=DEBUG
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  staticfiles:
+  media:

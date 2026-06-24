@@ -1,0 +1,53 @@
+# ── .dockerignore ──────────────────────────────────────────────────────────
+# Files/folders Docker should NOT copy into the container
+
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Environment (NEVER put real .env in Docker!)
+.env
+
+# Database (we use PostgreSQL in Docker, not SQLite)
+db.sqlite3
+db.sqlite3-journal
+
+# Static files (collected during build)
+staticfiles/
+
+# Media uploads (mounted as volume)
+media/
+
+# Logs (mounted as volume)
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker itself
+docker-compose*.yml
+Dockerfile
+.dockerignore
+
+# Documentation
+README.md
+*.md

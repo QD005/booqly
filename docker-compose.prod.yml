@@ -1,0 +1,100 @@
+# ── docker-compose.prod.yml (Production) ───────────────────────────────────
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: project_db
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    # No ports exposed - only accessible within Docker network
+
+  # Django Web Application (Gunicorn)
+  web:
+    build: .
+    container_name: project_web
+    restart: always
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn server.wsgi:application
+               --bind 0.0.0.0:8000
+               --workers 3
+               --timeout 120
+               --access-logfile /app/logs/gunicorn-access.log
+               --error-logfile /app/logs/gunicorn-error.log"
+    volumes:
+      - staticfiles:/app/staticfiles
+      - media:/app/media
+      - ./logs:/app/logs
+    expose:
+      - "8000"  # Only exposed to other containers, not host
+    environment:
+      - DJANGO_ENV=production
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - DB_ENGINE=${DB_ENGINE}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - RAINFOREST_API_KEY=${RAINFOREST_API_KEY}
+      - PAYMENT_PROVIDER_TOKEN=${PAYMENT_PROVIDER_TOKEN}
+      - WEBHOOK_BASE_URL=${WEBHOOK_BASE_URL}
+      - USE_MOCK_PRODUCTS=${USE_MOCK_PRODUCTS}
+      - SECURE_SSL_REDIRECT=${SECURE_SSL_REDIRECT}
+      - SESSION_COOKIE_SECURE=${SESSION_COOKIE_SECURE}
+      - CSRF_COOKIE_SECURE=${CSRF_COOKIE_SECURE}
+      - SECURE_HSTS_SECONDS=${SECURE_HSTS_SECONDS}
+      - SECURE_HSTS_INCLUDE_SUBDOMAINS=${SECURE_HSTS_INCLUDE_SUBDOMAINS}
+      - SECURE_HSTS_PRELOAD=${SECURE_HSTS_PRELOAD}
+      - LOG_LEVEL=INFO
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: project_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - staticfiles:/app/staticfiles:ro
+      - media:/app/media:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
+    depends_on:
+      - web
+
+  # Certbot for SSL
+  certbot:
+    image: certbot/certbot
+    container_name: project_certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  postgres_data:
+  staticfiles:
+  media:
