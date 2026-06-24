@@ -1,188 +1,1269 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Booqly AI — Shop Smarter on Telegram</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{--primary:#6366f1;--primary-dark:#4f46e5;--secondary:#f59e0b;--dark:#0f172a;--gray:#64748b;--light:#f8fafc;--white:#fff}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:var(--white);color:var(--dark);line-height:1.6}
-.navbar{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);z-index:1000;border-bottom:1px solid #e2e8f0}
-.nav-container{max-width:1200px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:1.5rem;font-weight:800;color:var(--primary);display:flex;align-items:center;gap:0.5rem}
-.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.1rem}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{text-decoration:none;color:var(--gray);font-weight:500;transition:color 0.2s}
-.nav-links a:hover{color:var(--primary)}
-.btn{padding:0.75rem 1.5rem;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;font-size:1rem}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;box-shadow:0 4px 14px rgba(99,102,241,0.4)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(99,102,241,0.5)}
-.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
-.btn-outline:hover{background:var(--primary);color:white}
-.hero{padding:8rem 2rem 4rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;min-height:90vh}
-.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:#eef2ff;color:var(--primary);padding:0.5rem 1rem;border-radius:50px;font-size:0.875rem;font-weight:600;margin-bottom:1.5rem}
-.hero h1{font-size:3.5rem;font-weight:800;line-height:1.1;margin-bottom:1.5rem}
-.hero h1 span{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{font-size:1.25rem;color:var(--gray);margin-bottom:2rem;max-width:500px}
-.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
-.hero-stats{display:flex;gap:2rem;margin-top:3rem}
-.stat h3{font-size:2rem;font-weight:800;color:var(--primary)}
-.stat p{font-size:0.875rem;color:var(--gray);margin:0}
-.phone-mockup{position:relative;width:320px;height:640px;background:var(--dark);border-radius:40px;padding:12px;box-shadow:0 25px 60px rgba(0,0,0,0.3);margin:0 auto}
-.phone-screen{width:100%;height:100%;background:#f0f2f5;border-radius:32px;overflow:hidden;display:flex;flex-direction:column}
-.phone-header{background:var(--primary);color:white;padding:1rem;display:flex;align-items:center;gap:0.75rem}
-.phone-avatar{width:36px;height:36px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
-.phone-header-text h4{font-size:0.9rem;font-weight:600}
-.phone-header-text span{font-size:0.75rem;opacity:0.8}
-.phone-chat{flex:1;padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:0.75rem}
-.msg{max-width:80%;padding:0.75rem 1rem;border-radius:18px;font-size:0.85rem;line-height:1.4;animation:fadeInUp 0.5s ease}
-.msg-bot{background:white;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
-.msg-user{background:var(--primary);color:white;align-self:flex-end;border-bottom-right-radius:4px}
-.msg-product{background:white;padding:0;overflow:hidden;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1);align-self:flex-start;max-width:90%}
-.msg-product img{width:100%;height:120px;object-fit:cover}
-.msg-product-info{padding:0.75rem}
-.msg-product-info h4{font-size:0.85rem;margin-bottom:0.25rem}
-.msg-product-info span{color:var(--primary);font-weight:700}
-.msg-btn{background:var(--primary);color:white;text-align:center;padding:0.5rem;font-size:0.8rem;font-weight:600}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.features{background:var(--light);padding:6rem 2rem}
-.section-container{max-width:1200px;margin:0 auto}
-.section-header{text-align:center;margin-bottom:4rem}
-.section-header h2{font-size:2.5rem;font-weight:800;margin-bottom:1rem}
-.section-header p{color:var(--gray);font-size:1.125rem;max-width:600px;margin:0 auto}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
-.feature-card{background:white;padding:2.5rem;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.05);transition:transform 0.2s}
-.feature-card:hover{transform:translateY(-5px)}
-.feature-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.5rem}
-.feature-card h3{font-size:1.25rem;font-weight:700;margin-bottom:0.75rem}
-.feature-card p{color:var(--gray);font-size:0.95rem}
-.how-it-works{padding:6rem 2rem}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:3rem;margin-top:3rem}
-.step{text-align:center;position:relative}
-.step-num{width:60px;height:60px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;margin:0 auto 1.5rem}
-.step h3{font-size:1.25rem;font-weight:700;margin-bottom:0.75rem}
-.step p{color:var(--gray)}
-.cta{background:linear-gradient(135deg,var(--primary),var(--primary-dark));padding:6rem 2rem;text-align:center;color:white}
-.cta h2{font-size:2.5rem;font-weight:800;margin-bottom:1rem}
-.cta p{font-size:1.25rem;opacity:0.9;margin-bottom:2rem}
-.cta .btn{background:white;color:var(--primary);font-size:1.1rem;padding:1rem 2.5rem}
-.cta .btn:hover{background:var(--light)}
-.footer{background:var(--dark);color:white;padding:3rem 2rem;text-align:center}
-.footer .logo{justify-content:center;margin-bottom:1rem;color:white}
-.footer p{color:#94a3b8}
-@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center;padding-top:6rem}.hero h1{font-size:2.5rem}.hero p{margin:0 auto 2rem}.hero-buttons{justify-content:center}.hero-stats{justify-content:center}.phone-mockup{display:none}.nav-links{display:none}}
-</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Booqly.Ai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --dark: #1e1b4b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --telegram-bg: #17212b;
+            --telegram-header: #242f3d;
+            --telegram-bubble-in: #2b5278;
+            --telegram-bubble-out: #182533;
+            --telegram-text: #ffffff;
+            --telegram-time: #7aa3c8;
+            --telegram-accent: #5288c1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #334155;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-brand {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--dark);
+            text-decoration: none;
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--primary); }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.75rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(99,102,241,0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99,102,241,0.45);
+        }
+        .btn-lg { padding: 1rem 2.5rem; font-size: 1rem; }
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(180deg, #f0f4ff 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -10%; right: -5%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        .badge svg { width: 18px; height: 18px; }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--dark);
+            margin-bottom: 1.25rem;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 90%;
+        }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        /* Telegram Phone Mockup */
+        .phone-mockup {
+            position: relative;
+            width: 320px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+        .phone-frame {
+            width: 100%;
+            background: #1a1a2e;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow:
+                0 25px 80px rgba(0,0,0,0.3),
+                0 0 0 2px #333,
+                inset 0 0 0 2px #2a2a4a;
+            position: relative;
+            animation: phoneFloat 4s ease-in-out infinite;
+        }
+        @keyframes phoneFloat {
+            0%, 100% { transform: translateY(0) rotateY(-5deg); }
+            50% { transform: translateY(-15px) rotateY(5deg); }
+        }
+        .phone-notch {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 28px;
+            background: #1a1a2e;
+            border-radius: 0 0 18px 18px;
+            z-index: 10;
+        }
+        .phone-screen {
+            background: var(--telegram-bg);
+            border-radius: 32px;
+            overflow: hidden;
+            height: 580px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .tg-header {
+            background: var(--telegram-header);
+            padding: 12px 16px;
+            padding-top: 32px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .tg-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .tg-info { flex: 1; }
+        .tg-name { color: white; font-weight: 600; font-size: 0.9rem; }
+        .tg-status { color: var(--telegram-time); font-size: 0.75rem; }
+        .tg-menu {
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .tg-chat {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            scrollbar-width: none;
+        }
+        .tg-chat::-webkit-scrollbar { display: none; }
+        .tg-message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 0.82rem;
+            line-height: 1.4;
+            color: var(--telegram-text);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: msgIn 0.4s ease forwards;
+            position: relative;
+        }
+        .tg-message.in {
+            background: var(--telegram-bubble-in);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .tg-message.out {
+            background: var(--telegram-bubble-out);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        @keyframes msgIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tg-time {
+            font-size: 0.65rem;
+            color: var(--telegram-time);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            justify-content: flex-end;
+        }
+        .tg-typing {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            align-self: flex-start;
+        }
+        .tg-typing span {
+            width: 8px; height: 8px;
+            background: var(--telegram-time);
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out both;
+        }
+        .tg-typing span:nth-child(1) { animation-delay: -0.32s; }
+        .tg-typing span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        .tg-input {
+            background: var(--telegram-header);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .tg-input-bar {
+            flex: 1;
+            background: var(--telegram-bg);
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: var(--telegram-time);
+            font-size: 0.85rem;
+        }
+        .tg-send {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--telegram-accent);
+            display: flex; align-items: center; justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+        .phone-reflection {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 40px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        /* Sections */
+        section { padding: 80px 0; }
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        .section-header h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.05rem;
+        }
+
+        /* Partners */
+        .partners {
+            background: #f8fafc;
+            padding: 50px 0;
+        }
+        .partners-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .partner-logo {
+            height: 32px;
+            opacity: 0.5;
+            filter: grayscale(100%);
+            transition: all 0.3s;
+        }
+        .partner-logo:hover { opacity: 0.8; filter: grayscale(0%); }
+
+        /* Features */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .feature-img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+        }
+        .feature-content h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .feature-content p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+        .feature-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .feature-card {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        .feature-icon {
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.3rem;
+        }
+        .feature-card h5 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin: 0;
+        }
+
+        /* Pricing */
+        .pricing { background: #f8fafc; }
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 52px; height: 28px;
+        }
+        .toggle-switch input {
+            opacity: 0; width: 0; height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #cbd5e1;
+            border-radius: 28px;
+            transition: 0.3s;
+        }
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            height: 22px; width: 22px;
+            left: 3px; bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .toggle-switch input:checked + .toggle-slider { background: var(--primary); }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .pricing-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+        .pricing-card:hover { transform: translateY(-5px); }
+        .pricing-card.featured {
+            border-color: var(--primary);
+            position: relative;
+        }
+        .pricing-card.featured::before {
+            content: 'Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin: 1rem 0 0.25rem;
+        }
+        .price span { font-size: 1rem; color: var(--gray); font-weight: 400; }
+        .pricing-card h5 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .pricing-card .subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        .pricing-card ul li {
+            padding: 0.6rem 0;
+            color: var(--gray);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .pricing-card ul li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .testimonial-img { width: 100%; max-width: 450px; border-radius: 20px; }
+        .stars { color: #fbbf24; margin-bottom: 1rem; }
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: #475569;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .author-avatar {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+        .author-info h5 { font-weight: 700; color: var(--dark); }
+        .author-info p { color: var(--gray); font-size: 0.9rem; }
+        .carousel-nav {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .carousel-btn {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s;
+            color: var(--dark);
+        }
+        .carousel-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* FAQ */
+        .faq { background: #f8fafc; }
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .faq-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.2s;
+        }
+        .faq-question:hover { color: var(--primary); }
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s;
+            color: var(--primary);
+        }
+        .faq-item.active .faq-question::after { transform: rotate(45deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            padding: 0 1.5rem;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 1.5rem 1.25rem;
+        }
+        .faq-answer p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-social {
+            display: flex;
+            gap: 1.25rem;
+        }
+        .footer-social a {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .footer-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        .footer-copy {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.4rem; }
+            .section-header h2 { font-size: 2rem; }
+            .feature-content h2 { font-size: 1.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 70px; left: 0; right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                transform: translateY(-150%);
+                opacity: 0;
+                transition: all 0.4s ease;
+                pointer-events: none;
+            }
+            .nav-menu.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+            .hero { padding: 120px 0 60px; }
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            .hero p { max-width: 100%; }
+            .hero-buttons { justify-content: center; }
+            .phone-mockup { width: 280px; }
+            .phone-screen { height: 500px; }
+            .feature-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            .feature-cards { grid-template-columns: 1fr; }
+            .feature-img, .testimonial-img { margin: 0 auto; }
+            .testimonial-author { justify-content: center; }
+            .carousel-nav { justify-content: center; }
+            section { padding: 60px 0; }
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.9rem; }
+            .section-header h2 { font-size: 1.6rem; }
+            .phone-mockup { width: 260px; }
+            .phone-screen { height: 460px; }
+            .btn-lg { padding: 0.85rem 1.75rem; font-size: 0.9rem; }
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar">
-<div class="nav-container">
-<div class="logo"><div class="logo-icon">🛍</div>Booqly AI</div>
-<ul class="nav-links">
-<li><a href="#features">Features</a></li>
-<li><a href="#how-it-works">How It Works</a></li>
-</ul>
-<a href="https://t.me/YourBotUsername" class="btn btn-primary">Start Shopping</a>
-</div>
-</nav>
 
-<section class="hero">
-<div>
-<div class="hero-badge">🤖 Powered by Gemini AI</div>
-<h1>Shop Smarter with <span>Booqly AI</span></h1>
-<p>Your personal AI shopping assistant inside Telegram. Find products, compare prices, and buy instantly — all in one chat.</p>
-<div class="hero-buttons">
-<a href="https://t.me/YourBotUsername" class="btn btn-primary">🚀 Start on Telegram</a>
-<a href="#how-it-works" class="btn btn-outline">How It Works</a>
-</div>
-<div class="hero-stats">
-<div class="stat"><h3>10K+</h3><p>Products Found</p></div>
-<div class="stat"><h3>&lt;2s</h3><p>Avg Response</p></div>
-<div class="stat"><h3>24/7</h3><p>Always Online</p></div>
-</div>
-</div>
-<div class="phone-mockup">
-<div class="phone-screen">
-<div class="phone-header">
-<div class="phone-avatar">🤖</div>
-<div class="phone-header-text"><h4>Booqly AI</h4><span>online</span></div>
-</div>
-<div class="phone-chat" id="chat-demo">
-<div class="msg msg-bot">Hey there! 👋 I'm Booqly AI. What are we hunting for today?</div>
-</div>
-</div>
-</div>
-</section>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">Booqly</a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#features">Integration</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#testimonial">Testimonial</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#" class="btn btn-primary">Signup/Login</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
 
-<section class="features" id="features">
-<div class="section-container">
-<div class="section-header">
-<h2>Why Booqly AI?</h2>
-<p>Everything you need to shop smarter, faster, and easier — without ever leaving Telegram.</p>
-</div>
-<div class="features-grid">
-<div class="feature-card"><div class="feature-icon">🧠</div><h3>AI-Powered Search</h3><p>Just describe what you need in plain English. Booqly AI understands intent, not just keywords.</p></div>
-<div class="feature-card"><div class="feature-icon">🖼️</div><h3>Visual Product Cards</h3><p>See real product images, prices, ratings, and features — beautifully formatted in your chat.</p></div>
-<div class="feature-card"><div class="feature-icon">💳</div><h3>Buy Inside Telegram</h3><p>Complete your entire purchase without leaving the app. Secure payments, instant confirmation.</p></div>
-<div class="feature-card"><div class="feature-icon">⚡</div><h3>Lightning Fast</h3><p>Real-time responses powered by async Django and webhooks. No waiting, no polling delays.</p></div>
-<div class="feature-card"><div class="feature-icon">🎯</div><h3>Smart Recommendations</h3><p>Get personalized suggestions based on your preferences, budget, and past conversations.</p></div>
-<div class="feature-card"><div class="feature-icon">🔒</div><h3>Secure & Private</h3><p>Your data is encrypted and never shared. Shop with confidence.</p></div>
-</div>
-</div>
-</section>
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        Cross-Platform Infrastructure
+                    </div>
+                    <h1>The Execution<br>Layer of AI Commerce</h1>
+                    <p>Customers can search and order for your products or services via any App (Telegram, WhatsApp, iMessage and social media DMs — Instagram, X, Facebook, TikTok). No forms. No accounts. No friction.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary btn-lg">Watch the video</a>
+                        <a href="#features" class="btn btn-outline btn-lg">Learn more</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <!-- Telegram Phone Mockup -->
+                    <div class="phone-mockup">
+                        <div class="phone-frame">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <div class="tg-header">
+                                    <div class="tg-avatar">B</div>
+                                    <div class="tg-info">
+                                        <div class="tg-name">Booqly Bot</div>
+                                        <div class="tg-status">bot • online</div>
+                                    </div>
+                                    <div class="tg-menu">⋮</div>
+                                </div>
+                                <div class="tg-chat" id="tgChat">
+                                    <!-- Messages injected by JS -->
+                                </div>
+                                <div class="tg-input">
+                                    <div class="tg-input-bar">Message...</div>
+                                    <div class="tg-send">➤</div>
+                                </div>
+                            </div>
+                            <div class="phone-reflection"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="how-it-works" id="how-it-works">
-<div class="section-container">
-<div class="section-header">
-<h2>How It Works</h2>
-<p>Three simple steps from "I want" to "It's ordered."</p>
-</div>
-<div class="steps">
-<div class="step"><div class="step-num">1</div><h3>Tell Booqly</h3><p>Message Booqly AI on Telegram. Describe what you need in natural language.</p></div>
-<div class="step"><div class="step-num">2</div><h3>Browse & Compare</h3><p>Booqly finds the best options with images, prices, and ratings. Pick your favorite.</p></div>
-<div class="step"><div class="step-num">3</div><h3>Buy Instantly</h3><p>Tap "Buy" and pay securely inside Telegram. Get your order confirmation in seconds.</p></div>
-</div>
-</div>
-</section>
+    <!-- Partners -->
+    <section class="partners">
+        <div class="container">
+            <p style="text-align:center; color:var(--gray); font-weight:600; font-size:0.9rem; margin-bottom:2rem; text-transform:uppercase; letter-spacing:1px;">Our Partners</p>
+            <div class="partners-grid">
+                <svg class="partner-logo" viewBox="0 0 120 40" fill="#64748b"><text x="10" y="28" font-family="Poppins" font-weight="700" font-size="18">Stripe</text></svg>
+                <svg class="partner-logo" viewBox="0 0 120 40" fill="#64748b"><text x="10" y="28" font-family="Poppins" font-weight="700" font-size="18">PayPal</text></svg>
+                <svg class="partner-logo" viewBox="0 0 120 40" fill="#64748b"><text x="10" y="28" font-family="Poppins" font-weight="700" font-size="18">Visa</text></svg>
+                <svg class="partner-logo" viewBox="0 0 120 40" fill="#64748b"><text x="10" y="28" font-family="Poppins" font-weight="700" font-size="18">Mastercard</text></svg>
+                <svg class="partner-logo" viewBox="0 0 120 40" fill="#64748b"><text x="10" y="28" font-family="Poppins" font-weight="700" font-size="18">Flutterwave</text></svg>
+            </div>
+        </div>
+    </section>
 
-<section class="cta">
-<div class="section-container">
-<h2>Ready to Shop Smarter?</h2>
-<p>Join thousands of shoppers who use Booqly AI to find and buy products faster than ever.</p>
-<a href="https://t.me/YourBotUsername" class="btn">🚀 Start Shopping on Telegram</a>
-</div>
-</section>
+    <!-- CTA Section -->
+    <section class="py-6" id="cta">
+        <div class="container">
+            <div class="feature-grid">
+                <div>
+                    <svg width="100%" viewBox="0 0 500 400" style="max-width:500px;">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.2" />
+                                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.1" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="50" y="50" width="400" height="300" rx="20" fill="url(#grad1)" />
+                        <rect x="100" y="100" width="300" height="50" rx="10" fill="#6366f1" opacity="0.8" />
+                        <rect x="100" y="170" width="200" height="12" rx="6" fill="#cbd5e1" />
+                        <rect x="100" y="195" width="250" height="12" rx="6" fill="#cbd5e1" />
+                        <rect x="100" y="220" width="180" height="12" rx="6" fill="#cbd5e1" />
+                        <circle cx="400" cy="320" r="40" fill="#6366f1" opacity="0.9" />
+                        <path d="M390 320 L410 320 M400 310 L400 330" stroke="white" stroke-width="4" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h2>From Command,<br>to Confirmed Order<br>in Seconds.</h2>
+                    <p>No logins, no checkout friction. Booqly AI converts customer's natural language command into a fully executed, confirmed transaction across any marketplace — automatically.</p>
+                    <a href="#" class="btn btn-primary btn-lg">Let's get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<footer class="footer">
-<div class="logo"><div class="logo-icon">🛍</div>Booqly AI</div>
-<p>© 2026 Booqly AI. Built with ❤️ using Django, Gemini, and Telegram.</p>
-</footer>
+    <!-- Features -->
+    <section class="py-6" id="features">
+        <div class="container">
+            <div class="feature-grid">
+                <div>
+                    <svg width="100%" viewBox="0 0 500 400" style="max-width:500px;">
+                        <defs>
+                            <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.15" />
+                                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.08" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="50" y="30" width="400" height="340" rx="24" fill="url(#grad2)" />
+                        <rect x="100" y="80" width="120" height="120" rx="16" fill="#6366f1" opacity="0.15" />
+                        <rect x="100" y="220" width="120" height="120" rx="16" fill="#8b5cf6" opacity="0.15" />
+                        <rect x="260" y="80" width="120" height="120" rx="16" fill="#6366f1" opacity="0.15" />
+                        <rect x="260" y="220" width="120" height="120" rx="16" fill="#8b5cf6" opacity="0.15" />
+                        <circle cx="160" cy="140" r="25" fill="#6366f1" opacity="0.6" />
+                        <circle cx="320" cy="140" r="25" fill="#8b5cf6" opacity="0.6" />
+                        <circle cx="160" cy="280" r="25" fill="#8b5cf6" opacity="0.6" />
+                        <circle cx="320" cy="280" r="25" fill="#6366f1" opacity="0.6" />
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h2>Fast, easy access to your<br>Products or services</h2>
+                    <p>Who can integrate: Marketplaces, Payment providers, Enterprise systems.</p>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h5>API Integration</h5>
+                            <p>Direct access to execution infrastructure on Cross-platform execution, Payment orchestration.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔧</div>
+                            <h5>Embedded SDK</h5>
+                            <p>Integrate execution into your product, Sandbox environment, Failure handling.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💬</div>
+                            <h5>App Interface or DMs</h5>
+                            <p>Booqly AI uses these interfaces as command layer (chat apps and social media DMs).</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎧</div>
+                            <h5>24/7 Customer Support</h5>
+                            <p>Integration Time: Days, not months. Dedicated onboarding & technical support.</p>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-lg" style="margin-top:1.5rem;">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-const chatDemo = document.getElementById('chat-demo');
-const messages = [
-    {type:'user',text:'I want a double-sided refrigerator',delay:1500},
-    {type:'bot',text:'Music to my ears! 🎧 Let me find the best fridges for you...',delay:2500},
-    {type:'product',name:'Samsung French Door Fridge',price:'$1,299',delay:4000},
-    {type:'user',text:'What about gaming laptops?',delay:6000},
-    {type:'bot',text:'Great question! 🎮 Best gaming laptops pack RTX 50-series GPUs. Want me to pull up top picks?',delay:7500},
-];
-messages.forEach(msg => {
-    setTimeout(() => {
-        const div = document.createElement('div');
-        if(msg.type === 'product'){
-            div.className = 'msg-product';
-            div.innerHTML = `<div style="background:linear-gradient(135deg,#6366f1,#4f46e5);height:100px;display:flex;align-items:center;justify-content:center;color:white;font-size:2rem">🖥️</div><div class="msg-product-info"><h4>${msg.name}</h4><span>${msg.price}</span></div><div class="msg-btn">🛒 Select & Buy</div>`;
-        } else {
-            div.className = `msg msg-${msg.type}`;
-            div.textContent = msg.text;
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Pay for Execution,<br>Not Attention</h2>
+                <p>You only pay when execution succeeds.</p>
+            </div>
+            <div class="pricing-toggle">
+                <span style="font-weight:600; color:var(--dark);">Startup</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="pricingToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+                <span style="font-weight:600; color:var(--dark);">Enterprise</span>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card" id="startupCard">
+                    <h5>Startup Plan</h5>
+                    <div class="price">$0<span>/month</span></div>
+                    <p class="subtitle">For small teams or office</p>
+                    <ul>
+                        <li>5% per transaction</li>
+                        <li>Volume-based pricing</li>
+                        <li>Execution complexity</li>
+                        <li>Support Tools</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width:100%;">Start free trial</a>
+                </div>
+                <div class="pricing-card featured" id="enterpriseCard">
+                    <h5>Pro Enterprise</h5>
+                    <div class="price">$99<span>/month</span></div>
+                    <p class="subtitle">Scales with your business</p>
+                    <ul>
+                        <li>2% per transaction</li>
+                        <li>Dedicated infrastructure</li>
+                        <li>Advanced analytics</li>
+                        <li>24/7 Support Tools</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width:100%; margin-bottom:0.75rem;">Sign up</a>
+                    <a href="#" style="color:var(--primary); font-size:0.9rem; text-decoration:none;">Or Start 14 days trial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonial">
+        <div class="container">
+            <div class="testimonial-grid">
+                <div>
+                    <svg width="100%" viewBox="0 0 450 400" style="max-width:450px;">
+                        <defs>
+                            <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.12" />
+                                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.06" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="25" y="25" width="400" height="350" rx="24" fill="url(#grad3)" />
+                        <circle cx="225" cy="150" r="80" fill="#6366f1" opacity="0.2" />
+                        <circle cx="225" cy="150" r="50" fill="#6366f1" opacity="0.4" />
+                        <text x="225" y="165" text-anchor="middle" fill="#6366f1" font-size="40" font-weight="700">★</text>
+                        <rect x="100" y="260" width="250" height="14" rx="7" fill="#cbd5e1" />
+                        <rect x="125" y="290" width="200" height="14" rx="7" fill="#cbd5e1" />
+                        <rect x="150" y="320" width="150" height="14" rx="7" fill="#cbd5e1" />
+                    </svg>
+                </div>
+                <div>
+                    <h2 style="font-size:2.2rem; font-weight:800; color:var(--dark); margin-bottom:1rem; line-height:1.2;">Meet Client Satisfaction<br>by using our product</h2>
+                    <p style="color:var(--gray); margin-bottom:2rem;">To become the default execution backbone for the global agent economy.</p>
+                    <div id="testimonialCarousel">
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+                        <p class="testimonial-text" id="testimonialText">"Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" id="authorAvatar">ZN</div>
+                            <div class="author-info">
+                                <h5 id="authorName">Zoltan Nemeth</h5>
+                                <p id="authorRole">CEO of Pixer Lab</p>
+                            </div>
+                        </div>
+                        <div class="carousel-nav">
+                            <button class="carousel-btn" id="prevBtn" aria-label="Previous">←</button>
+                            <button class="carousel-btn" id="nextBtn" aria-label="Next">→</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently asked questions</h2>
+                <p>Deterministic execution (not best-effort automation).</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item active">
+                    <button class="faq-question">What is Booqly.ai?</button>
+                    <div class="faq-answer">
+                        <p>Booqly.ai is an infrastructure that enables AI agents to execute real-world transactions across marketplaces — reliably, securely, and at scale.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Is Booqly a marketplace?</button>
+                    <div class="faq-answer">
+                        <p>No. Booqly does not sell products — it executes transactions across existing platforms.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How is this different from automation tools?</button>
+                    <div class="faq-answer">
+                        <p>Automation tools simulate actions. Booqly guarantees execution with reliability and recovery systems.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Do users need to download an app?</button>
+                    <div class="faq-answer">
+                        <p>No. Users can interact via Telegram, WhatsApp, iMessage, social media DMs or any integrated platforms.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How are payments handled?</button>
+                    <div class="faq-answer">
+                        <p>Through secure integrations with: Visa, PayPal, Mastercard, Stripe, Flutterwave, Mobile Money payments. No sensitive data is stored directly.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What happens if a transaction fails?</button>
+                    <div class="faq-answer">
+                        <p>Booqly retries automatically and switches execution paths to prevent duplicate charges.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Can I integrate today?</button>
+                    <div class="faq-answer">
+                        <p>Yes. API access and onboarding are available for free.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" style="font-size:1.75rem; font-weight:800; color:white; text-decoration:none;">Booqly</a>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Integration</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#testimonial">Testimonial</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                </div>
+                <p class="footer-copy">© 2026 Booqly.Ai. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => navMenu.classList.remove('open'));
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+            } else {
+                navbar.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
+            }
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) current = section.getAttribute('id');
+            });
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        });
+
+        // Telegram Chat Animation
+        const chatMessages = [
+            { text: "Hi! I'd like to order 2 pairs of running shoes, size 10.", type: "in", delay: 500 },
+            { text: "Sure! I found 3 options for you. Which color do you prefer?", type: "out", delay: 1800 },
+            { text: "The black ones please. Can you deliver to Kampala?", type: "in", delay: 3500 },
+            { text: "Absolutely! Delivery to Kampala is $5. Total: $105. Confirm?", type: "out", delay: 5000 },
+            { text: "Yes, confirm order!", type: "in", delay: 6800 },
+            { text: "✅ Order confirmed! #BOO-78432. Tracking link sent. Thanks!", type: "out", delay: 8200 },
+            { text: "Wow that was fast! No app needed 🔥", type: "in", delay: 10000 }
+        ];
+
+        const tgChat = document.getElementById('tgChat');
+        let messageIndex = 0;
+
+        function addMessage(msg) {
+            const div = document.createElement('div');
+            div.className = `tg-message ${msg.type}`;
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            div.innerHTML = `
+                ${msg.text}
+                <div class="tg-time">${time} ${msg.type === 'out' ? '✓✓' : ''}</div>
+            `;
+            tgChat.appendChild(div);
+            tgChat.scrollTop = tgChat.scrollHeight;
         }
-        chatDemo.appendChild(div);
-        chatDemo.scrollTop = chatDemo.scrollHeight;
-    }, msg.delay);
-});
-</script>
+
+        function showTyping() {
+            const typing = document.createElement('div');
+            typing.className = 'tg-typing';
+            typing.id = 'typingIndicator';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            tgChat.appendChild(typing);
+            tgChat.scrollTop = tgChat.scrollHeight;
+        }
+
+        function removeTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function runChat() {
+            tgChat.innerHTML = '';
+            messageIndex = 0;
+            chatMessages.forEach((msg, i) => {
+                setTimeout(() => {
+                    if (msg.type === 'out') {
+                        showTyping();
+                        setTimeout(() => {
+                            removeTyping();
+                            addMessage(msg);
+                        }, 800);
+                    } else {
+                        addMessage(msg);
+                    }
+                }, msg.delay);
+            });
+            // Loop
+            setTimeout(runChat, 14000);
+        }
+
+        runChat();
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const isActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
+            });
+        });
+
+        // Testimonial Carousel
+        const testimonials = [
+            {
+                text: "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.",
+                name: "Zoltan Nemeth",
+                role: "CEO of Pixer Lab",
+                initials: "ZN"
+            },
+            {
+                text: "Booqly transformed how our customers interact with our store. The Telegram integration alone increased our conversion rate by 40%. No more abandoned carts — just instant execution.",
+                name: "John Doe",
+                role: "Web Developer",
+                initials: "JD"
+            },
+            {
+                text: "The API is incredibly clean and the SDK dropped into our React app in under an hour. Deterministic execution means we never have to worry about failed transactions again.",
+                name: "Viezh Robert",
+                role: "UI/UX Designer",
+                initials: "VR"
+            }
+        ];
+        let currentTestimonial = 0;
+        const testimonialText = document.getElementById('testimonialText');
+        const authorName = document.getElementById('authorName');
+        const authorRole = document.getElementById('authorRole');
+        const authorAvatar = document.getElementById('authorAvatar');
+
+        function showTestimonial(index) {
+            const t = testimonials[index];
+            testimonialText.style.opacity = '0';
+            setTimeout(() => {
+                testimonialText.textContent = `"${t.text}"`;
+                authorName.textContent = t.name;
+                authorRole.textContent = t.role;
+                authorAvatar.textContent = t.initials;
+                testimonialText.style.opacity = '1';
+            }, 200);
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+
+        // Pricing Toggle
+        const pricingToggle = document.getElementById('pricingToggle');
+        const startupCard = document.getElementById('startupCard');
+        const enterpriseCard = document.getElementById('enterpriseCard');
+
+        pricingToggle.addEventListener('change', () => {
+            if (pricingToggle.checked) {
+                startupCard.style.order = '1';
+                enterpriseCard.style.order = '2';
+            } else {
+                startupCard.style.order = '2';
+                enterpriseCard.style.order = '1';
+            }
+        });
+    </script>
 </body>
 </html>
