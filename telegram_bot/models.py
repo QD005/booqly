@@ -25,8 +25,8 @@ class Product(models.Model):
     name = models.CharField(max_length=500)
     price = models.CharField(max_length=50)
     rating = models.FloatField(null=True, blank=True)
-    image_url = models.URLField(blank=True, null=True)
-    product_url = models.URLField(blank=True, null=True)
+    image_url = models.URLField(max_length=2000,blank=True, null=True)
+    product_url = models.URLField(max_length=2000,blank=True, null=True)
     features = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
